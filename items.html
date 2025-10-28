@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>All Items</title>
+  <link rel='stylesheet' href='style.css'>
+  <script src='https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js'></script>
+  <script src='https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js'></script>
+  <script src='js/firebase-config.js'></script>
+</head>
+<body>
+  <header><h1>All Exhibit Items</h1></header>
+  <nav>
+    <a href='index.html'>Home</a>
+    <a href='add-item.html'>Add Item</a>
+    <a href='items.html'>View Items</a>
+  </nav>
+  <div class='container' id='items'></div>
+  <script>
+    db.collection('items').get().then(snapshot => {
+      snapshot.forEach(doc => {
+        const item = doc.data();
+        document.getElementById('items').innerHTML += `<div><h3>${item.name}</h3><p>${item.desc}</p><a href='item.html?id=${doc.id}'>View</a></div><hr>`;
+      });
+    });
+  </script>
+</body>
+</html>

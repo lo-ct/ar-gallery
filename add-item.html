@@ -4,21 +4,38 @@
 <head>
   <title>Add Item</title>
   <link rel='stylesheet' href='style.css'>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js'></script>
+  <script src='https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js'></script>
+  <script src='https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js'></script>
+  <script src='js/firebase-config.js'></script>
 </head>
 <body>
   <header><h1>Add Exhibit Item</h1></header>
+  <nav>
+    <a href='index.html'>Home</a>
+    <a href='add-item.html'>Add Item</a>
+    <a href='items.html'>View Items</a>
+  </nav>
   <div class='container'>
-    <form onsubmit='event.preventDefault(); generateQR(document.getElementById("itemId").value);'>
-      <input type='text' id='itemId' placeholder='Item ID' required>
+    <form id='itemForm'>
       <input type='text' id='name' placeholder='Item Name' required>
       <textarea id='desc' placeholder='Description'></textarea>
-      <input type='file' id='model' accept='.glb,.gltf'>
-      <input type='file' id='image' accept='image/*'>
-      <button type='submit'>Generate QR</button>
+      <input type='text' id='model' placeholder='Model URL (.glb/.gltf)' required>
+      <input type='text' id='image' placeholder='Image URL' required>
+      <button type='submit'>Save Item</button>
     </form>
-    <div id='qr'></div>
+    <div id='status'></div>
   </div>
-  <script src='script.js'></script>
+  <script>
+    document.getElementById('itemForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const id = 'item-' + Date.now();
+      const name = document.getElementById('name').value;
+      const desc = document.getElementById('desc').value;
+      const model = document.getElementById('model').value;
+      const image = document.getElementById('image').value;
+      await db.collection('items').doc(id).set({ name, desc, model, image });
+      document.getElementById('status').innerText = 'Item saved with ID: ' + id;
+    });
+  </script>
 </body>
 </html>

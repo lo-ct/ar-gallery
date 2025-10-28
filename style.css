@@ -11,6 +11,16 @@ header {
   padding: 10px;
   text-align: center;
 }
+nav {
+  background: #555;
+  padding: 10px;
+  text-align: center;
+}
+nav a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+}
 .container {
   padding: 20px;
 }

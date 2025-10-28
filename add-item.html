@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Item</title>
+  <link rel='stylesheet' href='style.css'>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js'></script>
+</head>
+<body>
+  <header><h1>Add Exhibit Item</h1></header>
+  <div class='container'>
+    <form onsubmit='event.preventDefault(); generateQR(document.getElementById("itemId").value);'>
+      <input type='text' id='itemId' placeholder='Item ID' required>
+      <input type='text' id='name' placeholder='Item Name' required>
+      <textarea id='desc' placeholder='Description'></textarea>
+      <input type='file' id='model' accept='.glb,.gltf'>
+      <input type='file' id='image' accept='image/*'>
+      <button type='submit'>Generate QR</button>
+    </form>
+    <div id='qr'></div>
+  </div>
+  <script src='script.js'></script>
+</body>
+</html>
